@@ -1,0 +1,597 @@
+Lizandra - ADS 3° periodo
+EXERCICIO 1
+
+Exercício 1 - Fila de Números
+
+import java.util.Queue;
+import java.util.ArrayDeque;
+
+public class Exercicio1 {
+    public static void main(String[] args) {
+
+        Queue<Integer> fila = new ArrayDeque<>();
+
+        // Adicionando números
+        fila.offer(1);
+        fila.offer(2);
+        fila.offer(3);
+        fila.offer(4);
+        fila.offer(5);
+
+        // Removendo números
+        while (!fila.isEmpty()) {
+            System.out.println("Removendo: " + fila.poll());
+        }
+
+        System.out.println("Fila está vazia? " + fila.isEmpty());
+    }
+}
+
+___________________________________________________________________________________
+
+Exercício 2 — Fila de Supermercado
+
+import java.util.Queue;
+import java.util.LinkedList;
+
+public class Exercicio2 {
+    public static void main(String[] args) {
+
+        Queue<String> filaClientes = new LinkedList<>();
+
+        filaClientes.offer("João");
+        filaClientes.offer("Maria");
+        filaClientes.offer("Pedro");
+        filaClientes.offer("Ana");
+        filaClientes.offer("Carlos");
+
+        System.out.println("Fila inicial: " + filaClientes);
+        System.out.println();
+
+        int atendidos = 0;
+
+        while (!filaClientes.isEmpty()) {
+            String cliente = filaClientes.poll();
+            System.out.println("Atendendo: " + cliente);
+            atendidos++;
+        }
+
+        System.out.println();
+        System.out.println("Total de clientes atendidos: " + atendidos);
+        System.out.println("Fila final: " + filaClientes);
+    }
+}
+
+_________________________________________________________________________________________________
+
+Exercício 3 — Menu de Atendimento
+
+import java.util.Queue;
+import java.util.LinkedList;
+import java.util.Scanner;
+
+public class Exercicio3 {
+    public static void main(String[] args) {
+
+        Queue<String> fila = new LinkedList<>();
+        Scanner scanner = new Scanner(System.in);
+
+        while (true) {
+
+            System.out.print(
+                "\nDigite um nome, 'atender', 'fila' ou 'sair': "
+            );
+
+            String comando = scanner.nextLine();
+
+            if (comando.equalsIgnoreCase("sair")) {
+
+                System.out.println("Encerrando...");
+                break;
+
+            } else if (comando.equalsIgnoreCase("fila")) {
+
+                System.out.println("Fila atual: " + fila);
+
+            } else if (comando.equalsIgnoreCase("atender")) {
+
+                if (fila.isEmpty()) {
+                    System.out.println("Fila vazia!");
+                } else {
+                    System.out.println("Atendendo: " + fila.poll());
+                }
+
+            } else {
+
+                fila.offer(comando);
+                System.out.println(comando + " entrou na fila.");
+            }
+        }
+
+        scanner.close();
+    }
+}
+
+_______________________________________________________________________
+
+Exercício 4 — PriorityQueue com Números Aleatórios
+
+import java.util.PriorityQueue;
+import java.util.Random;
+
+public class Exercicio4 {
+    public static void main(String[] args) {
+
+        PriorityQueue<Integer> fila = new PriorityQueue<>();
+        Random random = new Random();
+
+        System.out.print("Números adicionados: ");
+
+        for (int i = 0; i < 10; i++) {
+            int numero = random.nextInt(100) + 1;
+
+            fila.offer(numero);
+
+            System.out.print(numero + " ");
+        }
+
+        System.out.println("\n");
+
+        System.out.println("Fila interna: " + fila);
+
+        System.out.println("\nRemovendo em ordem:");
+
+        while (!fila.isEmpty()) {
+            System.out.print(fila.poll() + " ");
+        }
+    }
+}
+
+________________________________________________________________________
+
+Exercício 5 — Sistema de Atendimento com Duas Filas
+
+import java.util.Queue;
+import java.util.LinkedList;
+
+public class Exercicio5 {
+    public static void main(String[] args) {
+
+        Queue<String> filaPrioritaria = new LinkedList<>();
+        Queue<String> filaNormal = new LinkedList<>();
+
+        // Prioritários
+        filaPrioritaria.offer("Sr. José (80)");
+        filaPrioritaria.offer("Dona Maria (70)");
+        filaPrioritaria.offer("Sr. Pedro (65)");
+
+        // Normais
+        filaNormal.offer("João");
+        filaNormal.offer("Maria");
+        filaNormal.offer("Carlos");
+        filaNormal.offer("Ana");
+        filaNormal.offer("Marcos");
+
+        int atendidosPrioritarios = 0;
+        int atendidosNormais = 0;
+
+        System.out.println("=== INICIANDO ATENDIMENTO ===\n");
+
+        while (!filaPrioritaria.isEmpty() || !filaNormal.isEmpty()) {
+
+            // Atende 2 prioritários
+            for (int i = 0; i < 2; i++) {
+
+                if (!filaPrioritaria.isEmpty()) {
+                    System.out.println(
+                        "Atendendo (Prioritário): "
+                        + filaPrioritaria.poll()
+                    );
+
+                    atendidosPrioritarios++;
+
+                } else {
+                    break;
+                }
+            }
+
+            // Atende 1 normal
+            if (!filaNormal.isEmpty()) {
+
+                System.out.println(
+                    "Atendendo (Normal): "
+                    + filaNormal.poll()
+                );
+
+                atendidosNormais++;
+            }
+
+            System.out.println();
+        }
+
+        // Se ainda restar alguém na fila normal
+        while (!filaNormal.isEmpty()) {
+            System.out.println(
+                "Atendendo (Normal): "
+                + filaNormal.poll()
+            );
+
+            atendidosNormais++;
+        }
+
+        System.out.println("\n=== FIM DO ATENDIMENTO ===");
+
+        System.out.println(
+            "Total atendidos: "
+            + (atendidosPrioritarios + atendidosNormais)
+        );
+
+        System.out.println(
+            "- Prioritários: "
+            + atendidosPrioritarios
+        );
+
+        System.out.println(
+            "- Normais: "
+            + atendidosNormais
+        );
+    }
+}
+
+_______________________________________________________________________
+
+Exercício 6 — Processador de Tarefas com Prioridade Personalizada
+import java.util.PriorityQueue;
+
+class Tarefa implements Comparable<Tarefa> {
+
+    String nome;
+    int prioridade;
+    long timestamp;
+
+    public Tarefa(String nome, int prioridade, long timestamp) {
+        this.nome = nome;
+        this.prioridade = prioridade;
+        this.timestamp = timestamp;
+    }
+
+    @Override
+    public int compareTo(Tarefa outra) {
+
+        // Primeiro pela prioridade
+        if (this.prioridade != outra.prioridade) {
+            return Integer.compare(this.prioridade, outra.prioridade);
+        }
+
+        // Depois pela ordem de chegada
+        return Long.compare(this.timestamp, outra.timestamp);
+    }
+
+    @Override
+    public String toString() {
+        return nome + " (Prioridade: " + prioridade + ")";
+    }
+}
+
+public class Exercicio6 {
+
+    static long contador = 0;
+
+    public static void main(String[] args) {
+
+        PriorityQueue<Tarefa> fila = new PriorityQueue<>();
+
+        fila.offer(new Tarefa("Fazer backup", 2, contador++));
+        fila.offer(new Tarefa("Reiniciar servidor", 1, contador++));
+        fila.offer(new Tarefa("Limpar logs", 3, contador++));
+        fila.offer(new Tarefa("Atualizar sistema", 1, contador++));
+        fila.offer(new Tarefa("Responder emails", 2, contador++));
+
+        System.out.println("=== EXECUTANDO TAREFAS ===");
+
+        int ordem = 1;
+
+        while (!fila.isEmpty()) {
+
+            System.out.println(
+                ordem + ". " + fila.poll()
+            );
+
+            ordem++;
+        }
+    }
+}
+___________________________________________________________
+
+Exercício 7 — Fila de Impressão com Cancelamento
+
+import java.util.LinkedList;
+import java.util.Scanner;
+
+class Documento {
+
+    private static int contador = 1;
+
+    int id;
+    String nomeDocumento;
+    String usuario;
+
+    public Documento(String nomeDocumento, String usuario) {
+        this.id = contador++;
+        this.nomeDocumento = nomeDocumento;
+        this.usuario = usuario;
+    }
+
+    @Override
+    public String toString() {
+        return id + "-" + nomeDocumento + "(" + usuario + ")";
+    }
+}
+
+public class Exercicio7 {
+
+    public static void main(String[] args) {
+
+        LinkedList<Documento> fila = new LinkedList<>();
+        Scanner scanner = new Scanner(System.in);
+
+        int opcao;
+
+        do {
+
+            System.out.println("\n--- FILA DE IMPRESSÃO ---");
+            System.out.println("1 - Adicionar documento");
+            System.out.println("2 - Imprimir próximo");
+            System.out.println("3 - Cancelar documento");
+            System.out.println("4 - Ver fila");
+            System.out.println("5 - Sair");
+
+            System.out.print("Escolha: ");
+            opcao = Integer.parseInt(scanner.nextLine());
+
+            switch (opcao) {
+
+                case 1:
+
+                    System.out.print("Nome do documento: ");
+                    String nome = scanner.nextLine();
+
+                    System.out.print("Usuário: ");
+                    String usuario = scanner.nextLine();
+
+                    Documento doc = new Documento(nome, usuario);
+
+                    fila.offer(doc);
+
+                    System.out.println(
+                        "Documento #" + doc.id
+                        + " adicionado."
+                    );
+
+                    break;
+
+                case 2:
+
+                    if (fila.isEmpty()) {
+                        System.out.println("Fila vazia!");
+                    } else {
+
+                        Documento impresso = fila.poll();
+
+                        System.out.println(
+                            "Imprimindo: "
+                            + impresso
+                        );
+                    }
+
+                    break;
+
+                case 3:
+
+                    if (fila.isEmpty()) {
+                        System.out.println("Fila vazia!");
+                        break;
+                    }
+
+                    System.out.print(
+                        "ID do documento a cancelar: "
+                    );
+
+                    int id = Integer.parseInt(
+                        scanner.nextLine()
+                    );
+
+                    Documento encontrado = null;
+
+                    for (Documento d : fila) {
+
+                        if (d.id == id) {
+                            encontrado = d;
+                            break;
+                        }
+                    }
+
+                    if (encontrado != null) {
+
+                        fila.remove(encontrado);
+
+                        System.out.println(
+                            "Documento cancelado: "
+                            + encontrado
+                        );
+
+                    } else {
+
+                        System.out.println(
+                            "Documento não encontrado!"
+                        );
+                    }
+
+                    break;
+
+                case 4:
+
+                    System.out.println("Fila: " + fila);
+
+                    break;
+
+                case 5:
+
+                    System.out.println("Encerrando...");
+                    break;
+
+                default:
+
+                    System.out.println("Opção inválida!");
+            }
+
+        } while (opcao != 5);
+
+        scanner.close();
+    }
+}
+
+
+___________________________________________________________________
+
+Exercício 8 — Call Center com Níveis de Atendimento
+
+import java.util.Queue;
+import java.util.LinkedList;
+import java.util.Random;
+
+class Chamada {
+
+    int id;
+    String descricao;
+    int nivelAtual;
+
+    public Chamada(int id, String descricao) {
+        this.id = id;
+        this.descricao = descricao;
+        this.nivelAtual = 1;
+    }
+}
+
+public class Exercicio8 {
+
+    public static void main(String[] args) {
+
+        Queue<Chamada> nivel1 = new LinkedList<>();
+        Queue<Chamada> nivel2 = new LinkedList<>();
+        Queue<Chamada> nivel3 = new LinkedList<>();
+
+        Random random = new Random();
+
+        // Adicionando chamadas
+        nivel1.offer(new Chamada(1, "Problema com internet"));
+        nivel1.offer(new Chamada(2, "Erro no sistema"));
+        nivel1.offer(new Chamada(3, "Banco de dados lento"));
+        nivel1.offer(new Chamada(4, "Computador travando"));
+        nivel1.offer(new Chamada(5, "Falha no login"));
+
+        int resolvidasNivel1 = 0;
+        int resolvidasNivel2 = 0;
+        int resolvidasNivel3 = 0;
+
+        System.out.println("=== SIMULAÇÃO CALL CENTER ===\n");
+
+        // Processando Nível 1
+        while (!nivel1.isEmpty()) {
+
+            Chamada chamada = nivel1.poll();
+
+            System.out.println(
+                "Atendendo Chamada #"
+                + chamada.id
+                + ": "
+                + chamada.descricao
+            );
+
+            boolean resolvida = random.nextInt(100) < 70;
+
+            if (resolvida) {
+
+                System.out.println("Nível 1: RESOLVIDA\n");
+                resolvidasNivel1++;
+
+            } else {
+
+                System.out.println(
+                    "Nível 1: NÃO RESOLVIDA -> Escalando para Nível 2\n"
+                );
+
+                chamada.nivelAtual = 2;
+                nivel2.offer(chamada);
+            }
+        }
+
+        // Processando Nível 2
+        while (!nivel2.isEmpty()) {
+
+            Chamada chamada = nivel2.poll();
+
+            boolean resolvida = random.nextInt(100) < 50;
+
+            if (resolvida) {
+
+                System.out.println(
+                    "Chamada #"
+                    + chamada.id
+                    + " RESOLVIDA no Nível 2\n"
+                );
+
+                resolvidasNivel2++;
+
+            } else {
+
+                System.out.println(
+                    "Chamada #"
+                    + chamada.id
+                    + " NÃO RESOLVIDA -> Nível 3\n"
+                );
+
+                chamada.nivelAtual = 3;
+                nivel3.offer(chamada);
+            }
+        }
+
+        // Processando Nível 3
+        while (!nivel3.isEmpty()) {
+
+            Chamada chamada = nivel3.poll();
+
+            System.out.println(
+                "Chamada #"
+                + chamada.id
+                + " RESOLVIDA no Nível 3\n"
+            );
+
+            resolvidasNivel3++;
+        }
+
+        System.out.println("=== ESTATÍSTICAS FINAIS ===");
+
+        System.out.println(
+            "Chamadas resolvidas no Nível 1: "
+            + resolvidasNivel1
+        );
+
+        System.out.println(
+            "Chamadas resolvidas no Nível 2: "
+            + resolvidasNivel2
+        );
+
+        System.out.println(
+            "Chamadas resolvidas no Nível 3: "
+            + resolvidasNivel3
+        );
+
+        System.out.println
+        resolvidasNivel1
+                + resolvidasNivel2
+                + resolvidasNivel3
+            )
+        );
+    }
+}
